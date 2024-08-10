@@ -40,6 +40,9 @@ def register_dummy_service():
 
         response = requests.post(url, headers=headers, json=payload, auth=HTTPBasicAuth('admin', 'secret'))
         print("response: ",response)
+        print("Registration response status code:", response.status_code)
+        print("Registration response headers:", response.headers)
+        print("Registration response body:", response.text)
         assert response.status_code == 204, "Failed to register the dummy service"  # 204 is used here assuming successful registration without response body
         print("Dummy service registered successfully.")
     except Exception as e:
