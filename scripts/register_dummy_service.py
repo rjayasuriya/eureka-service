@@ -1,4 +1,5 @@
 import requests
+from requests.auth import HTTPBasicAuth
 
 # Eureka server URL
 eureka_url = 'http://localhost:8761'
@@ -21,9 +22,18 @@ instance_info = {
     }
 }
 
+# Headers
+headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+}
+
+# Authentication
+auth = HTTPBasicAuth('admin', 'secret')
+
 # Register the service
 register_url = f'{eureka_url}/eureka/apps/{service_id}'
-response = requests.post(register_url, json=instance_info)
+response = requests.post(register_url, json=instance_info, headers=headers, auth=auth)
 
 if response.status_code == 204:
     print(f'Successfully registered {service_id}.')
@@ -32,7 +42,7 @@ else:
 
 # Verify the registration
 apps_url = f'{eureka_url}/eureka/apps'
-response = requests.get(apps_url)
+response = requests.get(apps_url, auth=auth)
 if service_id.upper() in response.text:
     print(f'Verification successful: {service_id} is registered.')
 else:

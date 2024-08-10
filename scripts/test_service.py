@@ -21,6 +21,7 @@ def test_eureka_status():
         versions_delta = root.find('.//versions__delta')
         assert versions_delta is not None, "No versions__delta element found in response"
         print(f"versions__delta: {versions_delta.text}")
+        print("Test passed")
 
     except Exception as e:
         print(f"Test failed with exception: {e}")

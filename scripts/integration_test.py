@@ -13,7 +13,7 @@ def run_curl_command():
     if error:
         print("Curl command error output:")
         print(error.decode('utf-8'))
-
+    print("Test passed")
     assert process.returncode == 0, "Curl command failed"
 
 if __name__ == "__main__":
