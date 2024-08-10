@@ -1,32 +1,14 @@
 version: '3.8'
 
 services:
-  eureka-server:
+  eureka-service:
     build: .
-    container_name: eureka-server
+    container_name: eureka-service
     ports:
       - "8761:8761"
     networks:
-      - eureka-network
-
-  # Example: Add other services if needed
-  # postgres-db:
-  #   image: postgres:13
-  #   container_name: postgres-db
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: postgres
-  #     POSTGRES_DB: eurekaDB
-  #   ports:
-  #     - "5432:5432"
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #   networks:
-  #     - eureka-network
-
-volumes:
-  postgres_data:
+      - eureka-service-network
 
 networks:
-  eureka-network:
+  eureka-service-network:
     driver: bridge
