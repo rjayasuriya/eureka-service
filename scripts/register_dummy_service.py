@@ -22,6 +22,11 @@ def register_dummy_service():
         }
     }
     try:
+        health_check_url = "http://localhost:8761/health"
+        health_response = requests.get(health_check_url, auth=HTTPBasicAuth('admin', 'secret'))
+        assert health_response.status_code == 200, "Eureka server is not accessible or down"
+        print("Eureka server is accessible. Proceeding with registration.")
+
         response = requests.post(url, headers=headers, json=payload, auth=HTTPBasicAuth('admin', 'secret'))
         print("response: ",response)
         assert response.status_code == 204, "Failed to register the dummy service"  # 204 is used here assuming successful registration without response body
