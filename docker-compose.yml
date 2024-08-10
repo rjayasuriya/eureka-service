@@ -1,14 +1,14 @@
 version: '3.8'
 
 services:
-  eureka-service:
+  eureka-server:
     build: .
-    container_name: eureka-service
+    container_name: eureka-server
     ports:
       - "8761:8761"
     networks:
-      - eureka-service-network
+      - eureka-network
 
 networks:
-  eureka-service-network:
+  eureka-network:
     driver: bridge
