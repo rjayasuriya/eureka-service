@@ -4,6 +4,8 @@ services:
   eureka-server:
     build: .
     container_name: eureka-server
+    environment:
+      SPRING_CONFIG_LOCATION: classpath:/application-test.properties
     ports:
       - "8761:8761"
     networks:
