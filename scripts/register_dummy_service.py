@@ -1,6 +1,7 @@
 import requests
 from requests.auth import HTTPBasicAuth
 import json
+import subprocess
 
 
 def register_dummy_service():
@@ -23,7 +24,32 @@ def register_dummy_service():
             }
         }
     }
+    # Running curl command first
+    curl_command = [
+        'curl',
+        '-X', 'POST',
+        'http://localhost:8761/eureka/apps/dummy-service',
+        '-u', 'admin:secret',
+        '-H', 'Content-Type: application/json',
+        '-d', json.dumps(payload),
+        '-v'
+    ]
     try:
+        # Execute the curl command
+        process = subprocess.Popen(curl_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+
+        # Output the results
+        print("Curl command output:")
+        print(stdout.decode())
+        if stderr:
+            print("Curl command error output:")
+            print(stderr.decode())
+
+        # Check for errors
+        if process.returncode != 0:
+            print("Curl command failed with return code:", process.returncode)
+
         # Request to get all available Actuator endpoints
         actuator_url = "http://localhost:8761/actuator"
         actuator_response = requests.get(actuator_url, auth=HTTPBasicAuth('admin', 'secret'))
