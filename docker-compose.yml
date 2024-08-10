@@ -8,6 +8,8 @@ services:
       - "8761:8761"
     environment:
       - SPRING_CONFIG_LOCATION=file:/config/
+      - spring.security.user.name=admin
+      - spring.security.user.password=secret
     volumes:
       - ./src/main/resources:/config
     networks:
