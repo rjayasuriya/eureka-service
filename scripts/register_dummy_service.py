@@ -20,6 +20,7 @@ def register_dummy_service():
 
     headers = {
         'Content-Type': 'application/json',
+        'Authorization': 'Basic YWRtaW46c2VjcmV0'  # Base64 encoded 'admin:secret'
     }
 
     try:
