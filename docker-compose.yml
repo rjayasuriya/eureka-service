@@ -6,6 +6,10 @@ services:
     container_name: eureka-server
     ports:
       - "8761:8761"
+    environment:
+      - SPRING_CONFIG_LOCATION=file:/config/
+    volumes:
+      - ./src/main/resources:/config
     networks:
       - eureka-network
 
