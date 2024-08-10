@@ -1,5 +1,7 @@
 import requests
 from requests.auth import HTTPBasicAuth
+import json
+
 
 def register_dummy_service():
     url = "http://localhost:8761/eureka/apps/dummy-service"
@@ -22,10 +24,18 @@ def register_dummy_service():
         }
     }
     try:
-        health_check_url = "http://localhost:8761/health"
+        # Request to get all available Actuator endpoints
+        actuator_url = "http://localhost:8761/actuator"
+        actuator_response = requests.get(actuator_url, auth=HTTPBasicAuth('admin', 'secret'))
+        print("actuator_response",actuator_response)
+
+        # Pre-check: Verify the Eureka server is accessible and responding
+        health_check_url = "http://localhost:8761/actuator/health"
         health_response = requests.get(health_check_url, auth=HTTPBasicAuth('admin', 'secret'))
-        print("health_response: ",health_response)
+        print("Health check response status code:", health_response.status_code)
+        print("Health check response content:", health_response.text)
         assert health_response.status_code == 200, "Eureka server is not accessible or down"
+
         print("Eureka server is accessible. Proceeding with registration.")
 
         response = requests.post(url, headers=headers, json=payload, auth=HTTPBasicAuth('admin', 'secret'))
