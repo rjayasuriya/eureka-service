@@ -1,4 +1,5 @@
 import requests
+import xml.etree.ElementTree as ET
 from requests.auth import HTTPBasicAuth
 
 # Eureka server URL
@@ -25,7 +26,7 @@ instance_info = {
 # Headers
 headers = {
     'Content-Type': 'application/json',
-    'Accept': 'application/json'
+    'Accept': 'application/xml'  # Expect XML response
 }
 
 # Authentication
@@ -34,16 +35,15 @@ auth = HTTPBasicAuth('admin', 'secret')
 # Register the service
 register_url = f'{eureka_url}/eureka/apps/{service_id}'
 response = requests.post(register_url, json=instance_info, headers=headers, auth=auth)
-
-if response.status_code == 200:  # Changed expected status code from 204 to 200
-    print(f'Successfully registered {service_id}.')
-else:
-    print(f'Failed to register {service_id}. Status code: {response.status_code}')
+print("response",response)
 
 # Verify the registration
 apps_url = f'{eureka_url}/eureka/apps'
-response = requests.get(apps_url, auth=auth)
-if service_id.upper() in response.text:
+response = requests.get(apps_url, headers={'Accept': 'application/xml'}, auth=auth)
+print("response",response)
+root = ET.fromstring(response.content)
+
+if any(service_id.upper() in app.find('name').text for app in root.findall('./application')):
     print(f'Verification successful: {service_id} is registered.')
 else:
     print(f'Verification failed: {service_id} is not registered.')
