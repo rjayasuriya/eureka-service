@@ -38,10 +38,12 @@ else:
 # Verify the registration
 apps_url = f'{eureka_url}/eureka/apps'
 response = requests.get(apps_url, headers={'Accept': 'application/xml'}, auth=auth)
+print("response: ",response)
 root = ET.fromstring(response.content)
 service_registered = False
 for application in root.findall('./application'):
     name = application.find('name')
+    print("name: ",name)
     if name is not None and service_id.upper() == name.text.upper():
         service_registered = True
         break
