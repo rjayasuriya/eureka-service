@@ -35,7 +35,7 @@ auth = HTTPBasicAuth('admin', 'secret')
 register_url = f'{eureka_url}/eureka/apps/{service_id}'
 response = requests.post(register_url, json=instance_info, headers=headers, auth=auth)
 
-if response.status_code == 204:
+if response.status_code == 200:  # Changed expected status code from 204 to 200
     print(f'Successfully registered {service_id}.')
 else:
     print(f'Failed to register {service_id}. Status code: {response.status_code}')
@@ -48,6 +48,7 @@ if service_id.upper() in response.text:
 else:
     print(f'Verification failed: {service_id} is not registered.')
 
-assert response.status_code == 204, "Failed to register service. Status code: {}".format(response.status_code)
+
+assert response.status_code == 200, "Failed to register service. Status code: {}".format(response.status_code)
 assert service_id.upper() in response.text, "Service is not registered as expected."
 
