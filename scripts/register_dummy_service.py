@@ -28,6 +28,9 @@ def register_dummy_service():
         'Authorization': f"Basic {encoded_credentials}"
     }
 
+    print("Encoded credentials:", encoded_credentials)  # Print the encoded credentials for debugging
+    print("Headers being sent:", headers)  # Print the headers to verify the correct Authorization token
+
     try:
         response = requests.post(
             "http://localhost:8761/eureka/apps/DUMMY-SERVICE",
