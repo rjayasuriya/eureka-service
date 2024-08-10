@@ -47,3 +47,7 @@ if service_id.upper() in response.text:
     print(f'Verification successful: {service_id} is registered.')
 else:
     print(f'Verification failed: {service_id} is not registered.')
+
+assert response.status_code == 204, "Failed to register service. Status code: {}".format(response.status_code)
+assert service_id.upper() in response.text, "Service is not registered as expected."
+
