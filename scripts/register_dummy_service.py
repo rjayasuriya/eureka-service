@@ -24,6 +24,7 @@ def register_dummy_service():
     try:
         health_check_url = "http://localhost:8761/health"
         health_response = requests.get(health_check_url, auth=HTTPBasicAuth('admin', 'secret'))
+        print("health_response: ",health_response)
         assert health_response.status_code == 200, "Eureka server is not accessible or down"
         print("Eureka server is accessible. Proceeding with registration.")
 
