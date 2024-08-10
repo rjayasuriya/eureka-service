@@ -1,49 +1,31 @@
 import requests
-import json
-import base64
+from requests.auth import HTTPBasicAuth
 
 def register_dummy_service():
-    print("Registering a dummy service with Eureka server...")
-    registration_data = {
+    url = "http://localhost:8761/eureka/apps/dummy-service"
+    headers = {'Content-Type': 'application/json'}
+    payload = {
         "instance": {
-            "hostName": "dummy-service.localhost",
+            "hostName": "dummyhost",
             "app": "DUMMY-SERVICE",
             "ipAddr": "127.0.0.1",
             "status": "UP",
-            "port": {"$": 8080, "@enabled": "true"},
-            "vipAddress": "dummy-service.localhost",
+            "port": {"$": "8080", "@enabled": "true"},
+            "securePort": {"$": "443", "@enabled": "false"},
+            "healthCheckUrl": "http://dummyhost:8080/health",
+            "statusPageUrl": "http://dummyhost:8080/status",
+            "homePageUrl": "http://dummyhost:8080",
             "dataCenterInfo": {
                 "@class": "com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo",
                 "name": "MyOwn"
             }
         }
     }
-
-    username = 'admin'
-    password = 'secret'
-    credentials = f"{username}:{password}"
-    encoded_credentials = base64.b64encode(credentials.encode()).decode('utf-8')
-    headers = {
-        'Content-Type': 'application/json',
-        'Authorization': f"Basic {encoded_credentials}"
-    }
-
-    print("Encoded credentials:", encoded_credentials)  # Print the encoded credentials for debugging
-    print("Headers being sent:", headers)  # Print the headers to verify the correct Authorization token
-
     try:
-        response = requests.post(
-            "http://localhost:8761/eureka/apps/DUMMY-SERVICE",
-            data=json.dumps(registration_data),
-            headers=headers
-        )
-        print(f"Registration response status code: {response.status_code}")
-        print("Response headers:")
-        print(response.headers)
-        print("Response body:")
-        print(response.text)
-        assert response.status_code == 204, "Failed to register the dummy service"
-        print("Dummy service successfully registered.")
+        response = requests.post(url, headers=headers, json=payload, auth=HTTPBasicAuth('admin', 'secret'))
+        print("response: ",response)
+        assert response.status_code == 204, "Failed to register the dummy service"  # 204 is used here assuming successful registration without response body
+        print("Dummy service registered successfully.")
     except Exception as e:
         print(f"Registration failed with exception: {e}")
         raise
