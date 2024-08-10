@@ -25,12 +25,6 @@ jobs:
       - name: Verify Docker Compose Installation
         run: docker-compose --version
 
-      - name: Clone Eureka Service Repository and Checkout branch2
-        run: |
-          git clone https://${{ secrets.GH_TOKEN }}@github.com/rjayasuriya/eureka-service.git ../eureka-service
-          cd ../eureka-service
-          git checkout branch2
-
       - name: Set up Docker Compose for Eureka Service
         working-directory: .
         run: docker-compose up -d --build
