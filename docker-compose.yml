@@ -13,7 +13,7 @@ services:
     volumes:
       - ./src/main/resources:/config
     networks:
-      - eureka-network
+      - auth_net
 
 networks:
   auth_net:
