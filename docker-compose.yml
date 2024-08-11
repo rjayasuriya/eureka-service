@@ -16,5 +16,5 @@ services:
       - eureka-network
 
 networks:
-  eureka-network:
-    driver: bridge
+  auth_net:
+    name: authentication-service_default
