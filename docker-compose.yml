@@ -7,9 +7,13 @@ services:
     ports:
       - "8761:8761"
     environment:
-      - SPRING_CONFIG_LOCATION=file:/config/
-      - spring.security.user.name=admin
-      - spring.security.user.password=secret
+      SPRING_CONFIG_LOCATION: file:/config/
+      SPRING_SECURITY_USER_NAME: admin
+      SPRING_SECURITY_USER_PASSWORD: secret
+      SPRING_APPLICATION_NAME: eureka-server  # Ensure correct service name
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "false"
+      EUREKA_CLIENT_FETCH_REGISTRY: "false"
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
     volumes:
       - ./src/main/resources:/config
     networks:
