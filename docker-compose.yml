@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   eureka-server:
-    image: eureka-server:latest  # Explicitly set image name
+    image: eureka-server  # Explicitly set image name
     build: .
     container_name: eureka-server
     ports:
