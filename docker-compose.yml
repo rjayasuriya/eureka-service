@@ -19,7 +19,13 @@ services:
       - ./src/main/resources:/config
     networks:
       - auth_net
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   auth_net:
+    name: authentication-service_default
     driver: bridge
