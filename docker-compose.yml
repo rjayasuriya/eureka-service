@@ -8,7 +8,8 @@ services:
     ports:
       - "8761:8761"
     environment:
-      SPRING_CONFIG_LOCATION: file:/config/
+      SPRING_CONFIG_NAME: application
+      SPRING_CONFIG_LOCATION: classpath:/config/
       SPRING_SECURITY_USER_NAME: admin
       SPRING_SECURITY_USER_PASSWORD: secret
       SPRING_APPLICATION_NAME: eureka-server

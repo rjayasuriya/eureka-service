@@ -1,0 +1,39 @@
+# Server Configuration
+server:
+  port: 8761
+
+# Eureka Server Configuration
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  instance:
+    hostname: eureka-server
+    prefer-ip-address: true
+
+# Spring Application Name
+spring:
+  application:
+    name: eureka-server
+
+# Management Endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+# Spring profiles
+spring:
+  profiles:
+    active: docker
+
+# Spring Security user details
+spring:
+  security:
+    user:
+      name: admin
+      password: secret
