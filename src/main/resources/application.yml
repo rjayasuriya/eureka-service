@@ -11,10 +11,16 @@ eureka:
     hostname: eureka-server
     prefer-ip-address: true
 
-# Spring Application Name
+# Spring consolidated configurations
 spring:
   application:
     name: eureka-server
+  profiles:
+    active: docker
+  security:
+    user:
+      name: admin
+      password: secret
 
 # Management Endpoints
 management:
@@ -25,15 +31,3 @@ management:
   endpoint:
     health:
       show-details: always
-
-# Spring profiles
-spring:
-  profiles:
-    active: docker
-
-# Spring Security user details
-spring:
-  security:
-    user:
-      name: admin
-      password: secret
