@@ -10,16 +10,18 @@ services:
     environment:
       SPRING_CONFIG_NAME: application
       SPRING_CONFIG_LOCATION: /config/
-      SPRING_SECURITY_USER_NAME: admin
-      SPRING_SECURITY_USER_PASSWORD: secret
       SPRING_APPLICATION_NAME: eureka-server
+      SPRING_PROFILES_ACTIVE: docker  # Explicitly setting the active profile
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "false"
       EUREKA_CLIENT_FETCH_REGISTRY: "false"
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
     volumes:
       - ./src/main/resources:/config
     networks:
-      - auth_net
+      auth_net:
+        aliases:
+          - eureka-server  # This is optional as it matches the service name
+          - eureka        # Additional alias if needed
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health" ]
       interval: 10s
