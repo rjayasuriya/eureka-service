@@ -17,6 +17,10 @@ spring:
     name: eureka-server
   profiles:
     active: docker
+  security:
+    user:
+      name:
+      password:
 
 # Management Endpoints
 management:
