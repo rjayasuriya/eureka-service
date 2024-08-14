@@ -1,9 +1,8 @@
 import requests
 import xml.etree.ElementTree as ET
-from requests.auth import HTTPBasicAuth
 
 print("Testing if Eureka server is accessible at http://localhost:8761/eureka/apps")
-response = requests.get("http://localhost:8761/eureka/apps", headers={'Accept': 'application/xml'}, auth=HTTPBasicAuth('admin', 'secret'))
+response = requests.get("http://localhost:8761/eureka/apps", headers={'Accept': 'application/xml'})
 print(f"Received status code: {response.status_code}")
 
 if response.status_code == 200:
