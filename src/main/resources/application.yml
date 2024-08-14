@@ -17,10 +17,9 @@ spring:
     name: eureka-server
   profiles:
     active: docker
-  security:
-    user:
-      name:
-      password:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
 
 # Management Endpoints
 management:
