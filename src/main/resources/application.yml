@@ -8,7 +8,7 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
   instance:
-    hostname: eureka-server
+    hostname: 172.18.0.2  # Explicitly use the IP address instead of 'eureka-server'
     prefer-ip-address: true
 
 # Spring consolidated configurations
