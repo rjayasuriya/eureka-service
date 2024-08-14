@@ -36,5 +36,5 @@ management:
 logging:
   level:
     org.springframework.security: DEBUG
-    com.netflix.discovery: 'DEBUG'
-    org.springframework.cloud.netflix.eureka: 'DEBUG'
+    com.netflix.discovery: DEBUG
+    org.springframework.cloud.netflix.eureka: DEBUG
