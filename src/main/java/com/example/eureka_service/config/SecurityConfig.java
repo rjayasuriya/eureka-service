@@ -20,7 +20,7 @@ public class SecurityConfig {
                         .requestMatchers("/eureka/**").permitAll()  // Allow all Eureka dashboard and API access
                         .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults());  // Use basic authentication
+                .httpBasic(httpBasic -> httpBasic.disable());
 
         return http.build();
     }
