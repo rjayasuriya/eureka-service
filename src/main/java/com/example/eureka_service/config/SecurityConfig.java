@@ -17,10 +17,10 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())  // Disable CSRF
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/**/eureka/**").permitAll()  // Allow all Eureka dashboard and API access
+                        .requestMatchers("/eureka/**").permitAll()  // Allow all Eureka dashboard and API access
                         .anyRequest().authenticated()
                 )
-                .httpBasic(httpBasic -> httpBasic.disable());
+                .httpBasic(Customizer.withDefaults());  // Use basic authentication
 
         return http.build();
     }
