@@ -21,7 +21,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());  // Use basic authentication
-
+//sss
         return http.build();
     }
 }
